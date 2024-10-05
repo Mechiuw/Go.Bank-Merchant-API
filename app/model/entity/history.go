@@ -1,9 +1,8 @@
 package entity
 
-type History struct {
-	ID         string `json:"id"`
-	CustomerID string `json:"customer_id"`
-	Action     string `json:"action"`
-	Amount     uint64 `json:"amount,omitempty"`
-	Timestamp  string `json:"timestamp"`
+type Transaction struct {
+	ID        string `json:"id"`
+	UserID    string `json:"user_id"`
+	Amount    uint64 `json:"amount"`
+	Timestamp string `json:"timestamp"`
 }
