@@ -13,22 +13,24 @@ type AuthService struct {
 	UserRepo *repository.UserRepository
 }
 
-func (s *AuthService) Login(req request.UserRequest) (*response.UserResponse, error) {
+func (s *AuthService) Login(req request.LoginRequest) (*response.UserResponse, error) {
 	users, err := s.UserRepo.GetAllUsers()
 	if err != nil {
 		return nil, err
 	}
 
 	for _, user := range users {
-		// Compare the provided password with the stored hashed password
-		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
-		if err == nil && user.Username == req.Username {
-			// Password is correct, return user response
-			return &response.UserResponse{
-				ID:       user.ID,
-				Username: user.Username,
-				Role:     user.Role,
-			}, nil
+		if user.Username == req.Username {
+			err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
+			if err == nil {
+				// Password is correct, return user response
+				return &response.UserResponse{
+					ID:       user.ID,
+					Username: user.Username,
+					Role:     user.Role,
+				}, nil
+			}
+			break
 		}
 	}
 	return nil, errors.New("invalid credentials")

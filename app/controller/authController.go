@@ -21,7 +21,7 @@ func (c *AuthController) Login(ctx *gin.Context) {
 		return
 	}
 
-	userID, err := c.AuthService.Login(req.Username, req.Password)
+	userID, err := c.AuthService.Login(req)
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 		return
