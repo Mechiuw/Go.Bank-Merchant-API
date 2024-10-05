@@ -1,9 +1,11 @@
 package entity
 
 type Customer struct {
-	ID       string `json:"id"`
-	Name     string `json:"name"`
-	Password string `json:"password"`
-	Email    string `json:"email"`
-	Balance  uint64 `json:"balance"`
+	ID          string    `json:"id"`
+	FirstName   string    `json:"first_name"`
+	LastName    string    `json:"last_name"`
+	Address     string    `json:"address"`
+	Balance     uint64    `json:"balance"`
+	AccountId   Account   `json:"account_id"`
+	HistoryList []History `json:"history_list"`
 }
