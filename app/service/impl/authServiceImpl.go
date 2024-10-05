@@ -30,6 +30,11 @@ func (s *AuthService) Login(req request.UserRequest) (*response.UserResponse, er
 }
 
 func (s *AuthService) Logout(userID string) error {
-	// Implement logout logic
-	return nil
+	user, err := s.UserRepo.FindUserByID(userID)
+	if err != nil {
+		return errors.New("user not found")
+	}
+
+	user.LoggedIn = false // Mark user as logged out
+	return s.UserRepo.UpdateUser(user)
 }
