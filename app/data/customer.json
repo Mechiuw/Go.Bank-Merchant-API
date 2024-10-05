@@ -1,0 +1,20 @@
+[
+    {
+        "id": "c1",
+        "username": "dummy-one",
+        "password": "a12345",  
+        "role": "customer"
+    },
+    {
+        "id": "c2",
+        "username": "dummy-two",
+        "password": "b54321",  
+        "role": "customer"
+    },
+    {
+        "id": "c3",
+        "username": "dummy-three",
+        "password": "c12543", 
+        "role": "customer"
+    }
+]

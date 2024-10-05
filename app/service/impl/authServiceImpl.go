@@ -5,6 +5,8 @@ import (
 	"bank/app/model/dto/response"
 	"bank/app/repository"
 	"errors"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type AuthService struct {
@@ -12,13 +14,16 @@ type AuthService struct {
 }
 
 func (s *AuthService) Login(req request.UserRequest) (*response.UserResponse, error) {
-	users, err := s.UserRepo.LoadUsers()
+	users, err := s.UserRepo.GetAllUsers()
 	if err != nil {
 		return nil, err
 	}
 
 	for _, user := range users {
-		if user.Username == req.Username && user.Password == req.Password {
+		// Compare the provided password with the stored hashed password
+		err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
+		if err == nil && user.Username == req.Username {
+			// Password is correct, return user response
 			return &response.UserResponse{
 				ID:       user.ID,
 				Username: user.Username,
@@ -35,6 +40,6 @@ func (s *AuthService) Logout(userID string) error {
 		return errors.New("user not found")
 	}
 
-	user.LoggedIn = false // Mark user as logged out
-	return s.UserRepo.UpdateUser(user)
+	user.IsLogged = false // Mark user as logged out
+	return nil
 }

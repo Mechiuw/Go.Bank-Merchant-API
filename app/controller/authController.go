@@ -2,31 +2,42 @@ package controller
 
 import (
 	"bank/app/model/dto/request"
+	"bank/app/model/dto/response"
 	"bank/app/service/impl"
-	"encoding/json"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type AuthController struct {
 	AuthService *impl.AuthService
 }
 
-func (c *AuthController) Login(w http.ResponseWriter, r *http.Request) {
-	var req request.UserRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+// Login handles login
+func (c *AuthController) Login(ctx *gin.Context) {
+	var req request.LoginRequest
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	userResp, err := c.AuthService.Login(req)
+	userID, err := c.AuthService.Login(req.Username, req.Password)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusUnauthorized)
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 		return
 	}
-	json.NewEncoder(w).Encode(userResp)
+
+	ctx.JSON(http.StatusOK, response.LoginResponse{UserID: userID.ID})
 }
 
-func (c *AuthController) Logout(w http.ResponseWriter, r *http.Request) {
-	// Handle logout
-	w.Write([]byte("Logout successful"))
+// Logout handles logout
+func (c *AuthController) Logout(ctx *gin.Context) {
+	userID := ctx.Param("id") // Get user ID from path variable
+
+	if err := c.AuthService.Logout(userID); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return // if error occured send or return the error
+	}
+
+	ctx.JSON(http.StatusOK, response.LogoutResponse{Message: "Logout successful"})
 }

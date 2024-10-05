@@ -15,7 +15,7 @@ type PaymentService struct {
 
 func (s *PaymentService) ProcessPayment(req request.PaymentRequest) (*response.PaymentResponse, error) {
 	// Check if user is registered
-	users, err := s.UserRepo.LoadUsers()
+	users, err := s.UserRepo.GetAllUsers()
 	if err != nil {
 		return nil, err
 	}

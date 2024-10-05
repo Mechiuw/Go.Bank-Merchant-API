@@ -1,0 +1,20 @@
+[
+    {
+        "id": "m1",
+        "username": "merchant-one",
+        "password": "aaa111",  
+        "role": "merchant"
+    },
+    {
+        "id": "m2",
+        "username": "merchant-two",
+        "password": "ddd222",  
+        "role": "merchant"
+    },
+    {
+        "id": "m3",
+        "username": "merchant-three",
+        "password": "222111ww", 
+        "role": "merchant"
+    }
+]
