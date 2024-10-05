@@ -1,0 +1,62 @@
+[
+    {
+        "id": "h1",
+        "userId": "c1",
+        "action": "login",
+        "timestamp": "2024-10-01T14:48:00Z"
+    },
+    {
+        "id": "h2",
+        "userId": "c1",
+        "action": "payment",
+        "amount": 150.00,
+        "merchantId": "m1",
+        "timestamp": "2024-10-01T15:00:00Z"
+    },
+    {
+        "id": "h3",
+        "userId": "c2",
+        "action": "login",
+        "timestamp": "2024-10-02T09:15:00Z"
+    },
+    {
+        "id": "h4",
+        "userId": "c2",
+        "action": "payment",
+        "amount": 75.50,
+        "merchantId": "m2",
+        "timestamp": "2024-10-02T09:30:00Z"
+    },
+    {
+        "id": "h5",
+        "userId": "c3",
+        "action": "login",
+        "timestamp": "2024-10-03T11:20:00Z"
+    },
+    {
+        "id": "h6",
+        "userId": "c3",
+        "action": "payment",
+        "amount": 200.00,
+        "merchantId": "m3",
+        "timestamp": "2024-10-03T11:35:00Z"
+    },
+    {
+        "id": "h7",
+        "userId": "m1",
+        "action": "login",
+        "timestamp": "2024-10-01T14:50:00Z"
+    },
+    {
+        "id": "h8",
+        "userId": "m2",
+        "action": "login",
+        "timestamp": "2024-10-02T09:20:00Z"
+    },
+    {
+        "id": "h9",
+        "userId": "m3",
+        "action": "login",
+        "timestamp": "2024-10-03T11:30:00Z"
+    }
+]
